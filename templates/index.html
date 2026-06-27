@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoreTrack</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">Store<span>Track</span></div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="/login">Login</a>
+            <a href="/register" class="nav-cta">Get started</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-left">
+            <div class="hero-eyebrow">
+                <span class="eyebrow-dot"></span>
+                Built for Indian retail shops
+            </div>
+            <h1>Your shop,<br>finally <em>organised.</em></h1>
+            <p class="hero-sub">Manage bills, track stock levels, and get a clear picture of your business — all from one screen. No notebooks. No confusion.</p>
+            <div class="hero-btns">
+                <a href="/register" class="btn-main">Start free <i class="ti ti-arrow-right"></i></a>
+                <a href="#how-it-works" class="btn-outline">See how it works</a>
+            </div>
+            <div class="hero-trust">
+                <div class="trust-avatars">
+                    <div class="avatar a1">RK</div>
+                    <div class="avatar a2">SP</div>
+                    <div class="avatar a3">AJ</div>
+                    <div class="avatar a4">MV</div>
+                </div>
+                <p class="trust-text">Trusted by <strong>500+ shop owners</strong> across India</p>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <span class="card-title">Today's overview</span>
+                    <span class="badge badge-green">Live</span>
+                </div>
+                <div class="two-col">
+                    <div>
+                        <div class="big-num">₹18,450</div>
+                        <div class="num-sub">Total sales today</div>
+                        <div class="bar"><div class="bar-fill green" style="width:74%"></div></div>
+                    </div>
+                    <div>
+                        <div class="big-num">34</div>
+                        <div class="num-sub">Bills generated</div>
+                        <div class="bar"><div class="bar-fill orange" style="width:55%"></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="two-col">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <span class="card-title">Stock alert</span>
+                        <span class="badge badge-orange">Low</span>
+                    </div>
+                    <div class="big-num sm">Rice 5kg</div>
+                    <div class="num-sub">3 units left — restock soon</div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <span class="card-title">Latest bill</span>
+                        <span class="badge badge-blue">Paid</span>
+                    </div>
+                    <div class="big-num sm">₹2,450</div>
+                    <div class="num-sub">Bill #1042 — Rajesh K.</div>
+                </div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <span class="card-title">Stock levels</span>
+                </div>
+                <div class="stock-row">
+                    <div>
+                        <div class="stock-name">Tata Salt 1kg</div>
+                        <div class="stock-qty">48 units</div>
+                    </div>
+                    <span class="stock-status ok">Good</span>
+                </div>
+                <div class="stock-row">
+                    <div>
+                        <div class="stock-name">Sunflower Oil 1L</div>
+                        <div class="stock-qty">7 units</div>
+                    </div>
+                    <span class="stock-status low">Low</span>
+                </div>
+                <div class="stock-row">
+                    <div>
+                        <div class="stock-name">Atta 10kg</div>
+                        <div class="stock-qty">22 units</div>
+                    </div>
+                    <span class="stock-status ok">Good</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-head">
+            <span class="section-label">Features</span>
+            <h2>Everything your shop needs</h2>
+            <p>No training. No complicated setup. Open it and start.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="fc-icon"><i class="ti ti-receipt"></i></div>
+                <h3>Bill management</h3>
+                <p>Create and store every bill your shop generates. Search and find any old receipt in seconds.</p>
+                <ul>
+                    <li><i class="ti ti-check"></i> Generate bills instantly</li>
+                    <li><i class="ti ti-check"></i> Track paid and unpaid</li>
+                    <li><i class="ti ti-check"></i> Search old bills by date or name</li>
+                </ul>
+            </div>
+            <div class="feature-card featured">
+                <span class="popular-pill">Most used</span>
+                <div class="fc-icon"><i class="ti ti-package"></i></div>
+                <h3>Stock tracking</h3>
+                <p>Know exactly what's on your shelves at all times. Get alerted before anything runs out.</p>
+                <ul>
+                    <li><i class="ti ti-check"></i> Live stock levels</li>
+                    <li><i class="ti ti-check"></i> Low stock alerts</li>
+                    <li><i class="ti ti-check"></i> Update stock in seconds</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="fc-icon"><i class="ti ti-chart-bar"></i></div>
+                <h3>Sales reports</h3>
+                <p>See your shop's performance at a glance — daily, weekly and monthly summaries.</p>
+                <ul>
+                    <li><i class="ti ti-check"></i> Daily sales summary</li>
+                    <li><i class="ti ti-check"></i> Top selling products</li>
+                    <li><i class="ti ti-check"></i> Monthly overview</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-head">
+            <span class="section-label">Simple process</span>
+            <h2>Running in 3 steps</h2>
+            <p>From sign up to your first bill in under 5 minutes.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h3>Create your account</h3>
+                <p>Sign up free in 30 seconds. No credit card. No paperwork.</p>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h3>Add your products</h3>
+                <p>Enter your items and their starting stock quantities.</p>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h3>Start tracking</h3>
+                <p>Create bills, update stock and watch your numbers daily.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Ready to organise your shop?</h2>
+        <p>Join hundreds of shop owners who ditched the notebook and switched to StoreTrack.</p>
+        <div class="cta-btns">
+            <a href="/register" class="btn-main">Get started free <i class="ti ti-arrow-right"></i></a>
+            <a href="/login" class="btn-outline">Login to your account</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-top">
+            <div>
+                <div class="footer-brand">Store<span>Track</span></div>
+                <p class="footer-desc">Built for small shop owners across India who want to run a tighter, smarter business.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How it works</a>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 StoreTrack</p>
+            <p>Made with care for Indian retail shops</p>
+        </div>
+    </footer>
+
+</body>
+</html>
