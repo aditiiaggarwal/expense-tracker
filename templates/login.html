@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — StoreTrack</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+
+    <div class="auth-container">
+
+        <div class="auth-left">
+            <a href="/" class="auth-logo">Store<span>Track</span></a>
+            <div class="auth-left-content">
+                <h2>Welcome back.</h2>
+                <p>Log back in to check your stock, manage bills and see how your shop is doing today.</p>
+                <div class="auth-features">
+                    <div class="auth-feature">
+                        <div class="af-icon"><i class="ti ti-check"></i></div>
+                        <span>Your data is safe and private</span>
+                    </div>
+                    <div class="auth-feature">
+                        <div class="af-icon"><i class="ti ti-check"></i></div>
+                        <span>Pick up exactly where you left off</span>
+                    </div>
+                    <div class="auth-feature">
+                        <div class="af-icon"><i class="ti ti-check"></i></div>
+                        <span>Access from any device</span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="auth-right">
+            <div class="auth-card">
+                <div class="auth-card-header">
+                    <h1>Login to your account</h1>
+                    <p>Enter your details to continue</p>
+                </div>
+
+                <form class="auth-form" method="POST" action="/login">
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <div class="input-wrap">
+                            <i class="ti ti-mail"></i>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrap">
+                            <i class="ti ti-lock"></i>
+                            <input type="password" id="password" name="password" placeholder="Your password" required>
+                        </div>
+                    </div>
+                    <div class="form-remember">
+                        <label class="remember-label">
+                            <input type="checkbox" name="remember"> Remember me
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="auth-btn">
+                        Login <i class="ti ti-arrow-right"></i>
+                    </button>
+                </form>
+
+                <p class="auth-switch">
+                    Don't have an account? <a href="/register">Register here</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
