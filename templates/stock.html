@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock — StoreTrack</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body style="background:#0c1a1e; color:white; font-family:'Inter',sans-serif;">
+
+    <nav class="navbar">
+        <div class="nav-logo">Store<span>Track</span></div>
+        <div class="nav-links">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/bills">Bills</a>
+            <a href="/stock" style="color:#4ecba0;">Stock</a>
+            <a href="/logout" style="color:#f0844c;">Logout</a>
+        </div>
+    </nav>
+
+    <div class="page-container">
+
+        <div class="page-header">
+            <div>
+                <h1>Stock Management</h1>
+                <p>Track your inventory levels in real time</p>
+            </div>
+            <button class="btn-main" onclick="toggleForm()">
+                <i class="ti ti-plus"></i> Add Item
+            </button>
+        </div>
+
+        <div class="add-form" id="addForm" style="display:none;">
+            <h3>Add New Stock Item</h3>
+            <form method="POST" action="/stock/add">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Item name</label>
+                        <div class="input-wrap">
+                            <i class="ti ti-package"></i>
+                            <input type="text" name="item_name" placeholder="e.g. Tata Salt 1kg" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <div class="input-wrap">
+                            <i class="ti ti-number"></i>
+                            <input type="number" name="quantity" placeholder="e.g. 50" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Unit</label>
+                        <div class="input-wrap">
+                            <i class="ti ti-ruler"></i>
+                            <input type="text" name="unit" placeholder="e.g. kg, L, pcs">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Low stock alert at</label>
+                        <div class="input-wrap">
+                            <i class="ti ti-bell"></i>
+                            <input type="number" name="low_stock_alert" placeholder="e.g. 5" value="5">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="auth-btn" style="width:auto; padding:0.7rem 2rem;">
+                    Add to Stock <i class="ti ti-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+
+        {% if low_stock %}
+        <div class="alert-section">
+            <h3><i class="ti ti-alert-triangle"></i> Low Stock Alerts</h3>
+            <div class="alert-grid">
+                {% for item in low_stock %}
+                <div class="alert-card">
+                    <p class="alert-name">{{ item[2] }}</p>
+                    <p class="alert-qty">Only {{ item[3] }} {{ item[4] or 'units' }} left</p>
+                    <span class="badge badge-orange">Restock</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="table-card">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in stock %}
+                    <tr>
+                        <td>{{ item[2] }}</td>
+                        <td>{{ item[3] }}</td>
+                        <td>{{ item[4] or '—' }}</td>
+                        <td>
+                            {% if item[3] <= item[5] %}
+                            <span class="stock-status low">Low</span>
+                            {% else %}
+                            <span class="stock-status ok">Good</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="/stock/delete/{{ item[0] }}" class="delete-btn">
+                                <i class="ti ti-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" style="text-align:center; color:#7ab5b0; padding:2rem;">
+                            No stock items yet. Add your first item above!
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleForm() {
+            var form = document.getElementById('addForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+
+</body>
+</html>

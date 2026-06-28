@@ -730,3 +730,150 @@ footer {
     font-size: 0.85rem;
     margin-bottom: 1rem;
 }
+/* PAGE LAYOUT */
+.page-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.page-header p {
+    color: #7ab5b0;
+    font-size: 0.88rem;
+    margin-top: 0.25rem;
+}
+
+/* ADD FORM */
+.add-form {
+    background: #0f2228;
+    border: 1px solid #1e3a42;
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.add-form h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    color: #fff;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+/* ALERT SECTION */
+.alert-section {
+    background: #1a0f0a;
+    border: 1px solid #4a2a15;
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.alert-section h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #f0844c;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.alert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.alert-card {
+    background: #2d1a0e;
+    border: 1px solid #4a2a15;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.alert-name {
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.alert-qty {
+    font-size: 0.78rem;
+    color: #f0844c;
+    margin-bottom: 0.5rem;
+}
+
+/* TABLE */
+.table-card {
+    background: #0f2228;
+    border: 1px solid #1e3a42;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 1rem 1.2rem;
+    font-size: 0.75rem;
+    color: #7ab5b0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #1e3a42;
+}
+
+.data-table td {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid #1e3a42;
+    color: #fff;
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tr:hover td {
+    background: #112830;
+}
+
+.delete-btn {
+    color: #f0844c;
+    font-size: 1.1rem;
+    transition: opacity 0.2s;
+}
+
+.delete-btn:hover { opacity: 0.7; }
+
+.bill-item-row {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr auto;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    align-items: center;
+}

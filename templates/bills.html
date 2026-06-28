@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bills — StoreTrack</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body style="background:#0c1a1e; color:white; font-family:'Inter',sans-serif;">
+
+    <nav class="navbar">
+        <div class="nav-logo">Store<span>Track</span></div>
+        <div class="nav-links">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/bills" style="color:#4ecba0;">Bills</a>
+            <a href="/stock">Stock</a>
+            <a href="/logout" style="color:#f0844c;">Logout</a>
+        </div>
+    </nav>
+
+    <div class="page-container">
+
+        <div class="page-header">
+            <div>
+                <h1>Bills</h1>
+                <p>Create and manage your shop bills</p>
+            </div>
+            <button class="btn-main" onclick="toggleForm()">
+                <i class="ti ti-plus"></i> New Bill
+            </button>
+        </div>
+
+        <!-- CREATE BILL FORM -->
+        <div class="add-form" id="addForm" style="display:none;">
+            <h3>Create New Bill</h3>
+            <form method="POST" action="/bills/add" id="billForm">
+
+                <div class="form-row" style="grid-template-columns:1fr 1fr; margin-bottom:1.5rem;">
+                    <div class="form-group">
+                        <label>Customer name</label>
+                        <div class="input-wrap">
+                            <i class="ti ti-user"></i>
+                            <input type="text" name="customer_name" placeholder="e.g. Rajesh Kumar">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Payment status</label>
+                        <div class="input-wrap">
+                            <i class="ti ti-check"></i>
+                            <select name="status" style="width:100%; background:#0f2228; border:1px solid #1e3a42; border-radius:8px; padding:0.75rem 0.9rem 0.75rem 2.6rem; font-size:0.9rem; color:#fff; outline:none; font-family:'Inter',sans-serif;">
+                                <option value="paid">Paid</option>
+                                <option value="unpaid">Unpaid</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEMS TABLE -->
+                <div style="margin-bottom:1rem;">
+                    <div style="display:grid; grid-template-columns:3fr 1fr 1fr auto; gap:0.75rem; margin-bottom:0.5rem; padding:0 0.5rem;">
+                        <span style="font-size:0.78rem; color:#7ab5b0; font-weight:600; text-transform:uppercase;">Item Name</span>
+                        <span style="font-size:0.78rem; color:#7ab5b0; font-weight:600; text-transform:uppercase;">Qty</span>
+                        <span style="font-size:0.78rem; color:#7ab5b0; font-weight:600; text-transform:uppercase;">Price (₹)</span>
+                        <span></span>
+                    </div>
+                    <div id="itemsContainer">
+                        <div class="bill-item-row">
+                            <div class="input-wrap">
+                                <i class="ti ti-package"></i>
+                                <input type="text" name="item_name[]" placeholder="e.g. Tata Salt 1kg" required>
+                            </div>
+                            <div class="input-wrap">
+                                <i class="ti ti-number"></i>
+                                <input type="number" name="item_qty[]" placeholder="1" min="1" value="1" onchange="calculateTotal()" required>
+                            </div>
+                            <div class="input-wrap">
+                                <i class="ti ti-currency-rupee"></i>
+                                <input type="number" name="item_price[]" placeholder="0" step="0.01" onchange="calculateTotal()" required>
+                            </div>
+                            <button type="button" onclick="removeRow(this)" style="background:#2d1a0e; border:1px solid #4a2a15; color:#f0844c; border-radius:8px; padding:0.5rem 0.75rem; cursor:pointer;">
+                                <i class="ti ti-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                    <button type="button" onclick="addRow()" style="background:#0f2228; border:1px solid #1e3a42; color:#4ecba0; border-radius:8px; padding:0.6rem 1.2rem; cursor:pointer; font-size:0.85rem; font-family:'Inter',sans-serif;">
+                        <i class="ti ti-plus"></i> Add Item
+                    </button>
+                    <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:10px; padding:0.75rem 1.5rem; display:flex; align-items:center; gap:1rem;">
+                        <span style="font-size:0.85rem; color:#7ab5b0;">Total Amount:</span>
+                        <span id="totalDisplay" style="font-size:1.3rem; font-weight:800; color:#4ecba0;">₹0</span>
+                        <input type="hidden" name="total_amount" id="totalInput" value="0">
+                    </div>
+                </div>
+
+                <button type="submit" class="auth-btn" style="width:auto; padding:0.7rem 2rem;">
+                    Create Bill <i class="ti ti-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- BILLS TABLE -->
+        <div class="table-card">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Bill #</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bill in bills %}
+                    <tr>
+                        <td style="font-weight:700;">#{{ bill[0] }}</td>
+                        <td>{{ bill[2] or 'Walk-in Customer' }}</td>
+                        <td style="color:#7ab5b0; font-size:0.82rem; max-width:200px;">{{ bill[6] or '—' }}</td>
+                        <td style="font-weight:700; color:#4ecba0;">₹{{ bill[3] }}</td>
+                        <td>
+                            {% if bill[4] == 'paid' %}
+                            <span class="stock-status ok">Paid</span>
+                            {% else %}
+                            <span class="stock-status low">Unpaid</span>
+                            {% endif %}
+                        </td>
+                        <td style="color:#7ab5b0; font-size:0.82rem;">{{ bill[5] }}</td>
+                        <td style="display:flex; gap:0.5rem;">
+                            <a href="/bills/print/{{ bill[0] }}" class="btn-main" style="padding:0.3rem 0.8rem; font-size:0.78rem;">
+                                <i class="ti ti-printer"></i> Print
+                            </a>
+                            <a href="/bills/delete/{{ bill[0] }}" class="delete-btn">
+                                <i class="ti ti-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" style="text-align:center; color:#7ab5b0; padding:2rem;">
+                            No bills yet. Create your first bill above!
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleForm() {
+            var form = document.getElementById('addForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function addRow() {
+            var container = document.getElementById('itemsContainer');
+            var row = document.createElement('div');
+            row.className = 'bill-item-row';
+            row.innerHTML = `
+                <div class="input-wrap">
+                    <i class="ti ti-package"></i>
+                    <input type="text" name="item_name[]" placeholder="e.g. Sugar 5kg" required>
+                </div>
+                <div class="input-wrap">
+                    <i class="ti ti-number"></i>
+                    <input type="number" name="item_qty[]" placeholder="1" min="1" value="1" onchange="calculateTotal()" required>
+                </div>
+                <div class="input-wrap">
+                    <i class="ti ti-currency-rupee"></i>
+                    <input type="number" name="item_price[]" placeholder="0" step="0.01" onchange="calculateTotal()" required>
+                </div>
+                <button type="button" onclick="removeRow(this)" style="background:#2d1a0e; border:1px solid #4a2a15; color:#f0844c; border-radius:8px; padding:0.5rem 0.75rem; cursor:pointer;">
+                    <i class="ti ti-trash"></i>
+                </button>
+            `;
+            container.appendChild(row);
+        }
+
+        function removeRow(btn) {
+            var rows = document.querySelectorAll('.bill-item-row');
+            if (rows.length > 1) {
+                btn.parentElement.remove();
+                calculateTotal();
+            }
+        }
+
+        function calculateTotal() {
+            var qtys = document.querySelectorAll('input[name="item_qty[]"]');
+            var prices = document.querySelectorAll('input[name="item_price[]"]');
+            var total = 0;
+            for (var i = 0; i < qtys.length; i++) {
+                var qty = parseFloat(qtys[i].value) || 0;
+                var price = parseFloat(prices[i].value) || 0;
+                total += qty * price;
+            }
+            document.getElementById('totalDisplay').textContent = '₹' + total.toFixed(2);
+            document.getElementById('totalInput').value = total.toFixed(2);
+        }
+    </script>
+
+</body>
+</html>

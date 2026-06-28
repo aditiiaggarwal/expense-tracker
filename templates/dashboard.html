@@ -8,39 +8,121 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body style="background:#0c1a1e; color:white; font-family:'Inter',sans-serif; padding:2rem;">
+<body style="background:#0c1a1e; color:white; font-family:'Inter',sans-serif;">
 
     <nav class="navbar">
         <div class="nav-logo">Store<span>Track</span></div>
         <div class="nav-links">
-            <span style="color:#7ab5b0;">Welcome, {{ session['owner_name'] }}</span>
+            <a href="/dashboard" style="color:#4ecba0;">Dashboard</a>
+            <a href="/stock">Stock</a>
+            <a href="/bills">Bills</a>
             <a href="/logout" style="color:#f0844c;">Logout</a>
         </div>
     </nav>
 
-    <div style="max-width:900px; margin:3rem auto; text-align:center;">
-        <h1 style="font-size:2rem; font-weight:800; margin-bottom:0.5rem;">
-            Welcome to StoreTrack, {{ session['shop_name'] }}!
-        </h1>
-        <p style="color:#7ab5b0; margin-bottom:3rem;">Your dashboard is coming soon.</p>
+    <div class="page-container">
 
-        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;">
-            <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:14px; padding:2rem;">
-                <i class="ti ti-receipt" style="font-size:2rem; color:#4ecba0;"></i>
-                <h3 style="margin-top:1rem;">Bills</h3>
-                <p style="color:#7ab5b0; font-size:0.85rem; margin-top:0.5rem;">Coming soon</p>
-            </div>
-            <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:14px; padding:2rem;">
-                <i class="ti ti-package" style="font-size:2rem; color:#4ecba0;"></i>
-                <h3 style="margin-top:1rem;">Stock</h3>
-                <p style="color:#7ab5b0; font-size:0.85rem; margin-top:0.5rem;">Coming soon</p>
-            </div>
-            <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:14px; padding:2rem;">
-                <i class="ti ti-chart-bar" style="font-size:2rem; color:#4ecba0;"></i>
-                <h3 style="margin-top:1rem;">Reports</h3>
-                <p style="color:#7ab5b0; font-size:0.85rem; margin-top:0.5rem;">Coming soon</p>
+        <div class="page-header">
+            <div>
+                <h1>Welcome back, {{ session['owner_name'] }}</h1>
+                <p>{{ session['shop_name'] }} — here's what's happening today</p>
             </div>
         </div>
+
+        <!-- STAT CARDS -->
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:2rem;">
+            <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:14px; padding:1.5rem;">
+                <p style="font-size:0.75rem; color:#7ab5b0; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">Total Stock Items</p>
+                <h2 style="font-size:2rem; font-weight:800; color:#4ecba0;">{{ total_stock }}</h2>
+                <p style="font-size:0.8rem; color:#7ab5b0; margin-top:0.3rem;">Items in inventory</p>
+            </div>
+            <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:14px; padding:1.5rem;">
+                <p style="font-size:0.75rem; color:#7ab5b0; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">Low Stock Alerts</p>
+                <h2 style="font-size:2rem; font-weight:800; color:#f0844c;">{{ low_stock_count }}</h2>
+                <p style="font-size:0.8rem; color:#7ab5b0; margin-top:0.3rem;">Items need restocking</p>
+            </div>
+            <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:14px; padding:1.5rem;">
+                <p style="font-size:0.75rem; color:#7ab5b0; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">Total Bills</p>
+                <h2 style="font-size:2rem; font-weight:800; color:#4ecba0;">{{ total_bills }}</h2>
+                <p style="font-size:0.8rem; color:#7ab5b0; margin-top:0.3rem;">Bills generated</p>
+            </div>
+        </div>
+
+        <!-- QUICK ACCESS -->
+        <h2 style="font-size:1rem; font-weight:700; margin-bottom:1rem; color:#7ab5b0; text-transform:uppercase; letter-spacing:0.05em;">Quick Access</h2>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:2rem;">
+            <a href="/stock" style="text-decoration:none;">
+                <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:14px; padding:1.5rem; transition:all 0.3s; cursor:pointer;">
+                    <i class="ti ti-package" style="font-size:2rem; color:#4ecba0;"></i>
+                    <h3 style="margin-top:1rem; font-size:0.95rem;">Stock</h3>
+                    <p style="color:#7ab5b0; font-size:0.82rem; margin-top:0.3rem;">Manage your inventory</p>
+                </div>
+            </a>
+            <a href="/bills" style="text-decoration:none;">
+                <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:14px; padding:1.5rem; transition:all 0.3s; cursor:pointer;">
+                    <i class="ti ti-receipt" style="font-size:2rem; color:#4ecba0;"></i>
+                    <h3 style="margin-top:1rem; font-size:0.95rem;">Bills</h3>
+                    <p style="color:#7ab5b0; font-size:0.82rem; margin-top:0.3rem;">Create and manage bills</p>
+                </div>
+            </a>
+            <a href="/reports" style="text-decoration:none;">
+                <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:14px; padding:1.5rem; transition:all 0.3s; cursor:pointer;">
+                    <i class="ti ti-chart-bar" style="font-size:2rem; color:#4ecba0;"></i>
+                    <h3 style="margin-top:1rem; font-size:0.95rem;">Reports</h3>
+                    <p style="color:#7ab5b0; font-size:0.82rem; margin-top:0.3rem;">View sales reports</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- LOW STOCK ALERTS -->
+        {% if low_stock %}
+        <div class="alert-section">
+            <h3><i class="ti ti-alert-triangle"></i> Low Stock Alerts</h3>
+            <div class="alert-grid">
+                {% for item in low_stock %}
+                <div class="alert-card">
+                    <p class="alert-name">{{ item[2] }}</p>
+                    <p class="alert-qty">Only {{ item[3] }} {{ item[4] or 'units' }} left</p>
+                    <span class="badge badge-orange">Restock</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- RECENT STOCK -->
+        {% if recent_stock %}
+        <h2 style="font-size:1rem; font-weight:700; margin-bottom:1rem; color:#7ab5b0; text-transform:uppercase; letter-spacing:0.05em;">Recent Stock</h2>
+        <div class="table-card">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in recent_stock %}
+                    <tr>
+                        <td>{{ item[2] }}</td>
+                        <td>{{ item[3] }}</td>
+                        <td>{{ item[4] or '—' }}</td>
+                        <td>
+                            {% if item[3] <= item[5] %}
+                            <span class="stock-status low">Low</span>
+                            {% else %}
+                            <span class="stock-status ok">Good</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
     </div>
 
 </body>
