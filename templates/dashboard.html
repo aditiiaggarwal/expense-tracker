@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — StoreTrack</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body style="background:#0c1a1e; color:white; font-family:'Inter',sans-serif; padding:2rem;">
+
+    <nav class="navbar">
+        <div class="nav-logo">Store<span>Track</span></div>
+        <div class="nav-links">
+            <span style="color:#7ab5b0;">Welcome, {{ session['owner_name'] }}</span>
+            <a href="/logout" style="color:#f0844c;">Logout</a>
+        </div>
+    </nav>
+
+    <div style="max-width:900px; margin:3rem auto; text-align:center;">
+        <h1 style="font-size:2rem; font-weight:800; margin-bottom:0.5rem;">
+            Welcome to StoreTrack, {{ session['shop_name'] }}!
+        </h1>
+        <p style="color:#7ab5b0; margin-bottom:3rem;">Your dashboard is coming soon.</p>
+
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;">
+            <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:14px; padding:2rem;">
+                <i class="ti ti-receipt" style="font-size:2rem; color:#4ecba0;"></i>
+                <h3 style="margin-top:1rem;">Bills</h3>
+                <p style="color:#7ab5b0; font-size:0.85rem; margin-top:0.5rem;">Coming soon</p>
+            </div>
+            <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:14px; padding:2rem;">
+                <i class="ti ti-package" style="font-size:2rem; color:#4ecba0;"></i>
+                <h3 style="margin-top:1rem;">Stock</h3>
+                <p style="color:#7ab5b0; font-size:0.85rem; margin-top:0.5rem;">Coming soon</p>
+            </div>
+            <div style="background:#0f2228; border:1px solid #1e3a42; border-radius:14px; padding:2rem;">
+                <i class="ti ti-chart-bar" style="font-size:2rem; color:#4ecba0;"></i>
+                <h3 style="margin-top:1rem;">Reports</h3>
+                <p style="color:#7ab5b0; font-size:0.85rem; margin-top:0.5rem;">Coming soon</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

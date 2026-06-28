@@ -484,6 +484,7 @@ footer {
     grid-template-columns: 1fr 1fr;
     min-height: 100vh;
     width: 100%;
+    overflow: hidden;
 }
 
 .auth-left {
@@ -566,10 +567,12 @@ footer {
 /* AUTH RIGHT */
 .auth-right {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     padding: 3rem;
     background: #0c1a1e;
+    overflow-y: auto;
+    height: 100vh;
 }
 
 .auth-card {
@@ -717,3 +720,13 @@ footer {
 }
 
 .forgot-link:hover { opacity: 0.75; }
+
+.auth-error {
+    background: #2d1a0e;
+    color: #f0844c;
+    border: 1px solid #4a2a15;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
